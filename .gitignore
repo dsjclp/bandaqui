@@ -5,3 +5,4 @@ benv
 db.*
 .DS_Store
 **/**/migrations
+band/settings.py

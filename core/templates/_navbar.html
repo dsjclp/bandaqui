@@ -1,0 +1,80 @@
+{% load static %}
+
+<!-- Site navbar -->
+  {% block navbar %}
+
+  <!-- Alignement vertical logo -->
+    <style>
+      .brand-logo {
+        display: inline-block;
+        height: 100%;
+        }
+      .brand-logo>img {
+          vertical-align: middle
+      }
+  </style>
+
+  <div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper orange darken-4">
+            
+          <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <img class="brand-logo" src="{% static 'logo.png' %}">
+          <ul class="right hide-on-med-and-down">
+              <li><a href="{% url 'home' %}">Accueil</a></li>
+              <li><a href="{% url 'photo' %}">Photos</a></li>
+              <li><a href="{% url 'video' %}">Vidéos</a></li>
+              <li><a href="{% url 'blog:post_new' %}">Contact</a></li>
+              <li><a href="{% url 'info' %}">Infos</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'memberhome' %}">Membres</a></li>
+              {% if user.is_staff %}
+              <li><a href="{% url 'admin:index' %}">Admin</a></li>
+              {% endif %}
+              {% endif %}
+              {% if user.is_anonymous %}
+              <li>
+                <a href="{% url 'login' %}" ><i class="material-icons">phonelink_lock</i></a>
+              </li>
+              {% else %}
+                <li>
+                  <a href="{% url 'logout' %}" ><i class="material-icons">phonelink_erase</i></a>
+                </li>
+              {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <ul id="slide-out" class="sidenav grey lighten-3">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img class="responsive-img" src="{% static 'carousel1.jpg' %}">
+          </div>
+          {% if user.is_authenticated %}
+          <a href=""><span class="white-text name">Bienvenue {{ user.first_name }} !</span></a>
+          {% else %}
+          <a href=""><span class="white-text name">Bienvenue ! </span></a>
+          {% endif %}
+        </div>
+      </li>
+      <li><a class="sidenav-close red-text" href="#!"><i class="material-icons">close</i>Fermer</a></li>
+      <li><a href="{% url 'home' %}"><i class="material-icons">home</i>Accueil</a></li>
+      <li><a href="{% url 'photo' %}"><i class="material-icons">camera</i>Photo</a></li>
+      <li><a href="{% url 'video' %}"><i class="material-icons">videocam</i>Video</a></li>
+      <li><a href="{% url 'blog:post_new' %}"><i class="material-icons">message</i>Contact</a></li>
+      <li><a href="{% url 'info'%}"><i class="material-icons">info</i>Infos</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'memberhome' %}"><i class="material-icons">people</i>Membres</a></li>
+      {% if user.is_staff %}
+      <li><a href="{% url 'admin:index' %}"><i class="material-icons">phonelink</i>Admin</a></li>
+      {% endif %}
+      <li><a class="red-text"  href="{% url 'logout' %}"><i class="material-icons">phonelink_erase</i>Déconnexion</a></li>
+      {% else %}
+      <li><a class="green-text"  href="{% url 'login' %}"><i class="material-icons">phonelink</i>Connexion</a></li>
+      {% endif %}
+    </ul>
+    
+
+    {% endblock %}

@@ -1,0 +1,45 @@
+<section id="participation">
+<h6>Formation actuelle: {{ presences.count }} musicien(nes).</h6>
+<hr>
+<div class="card-body">
+  <ul class="collection" id="participation" style="border: none;">
+    {% if presences %}
+    <li class="collection-item">Présents : 
+      {% for instrumentpresence in instrumentpresences %}
+        {% if instrumentpresence.num_participations != 0 %}
+          {{ instrumentpresence.num_participations}} en {{ instrumentpresence}},&nbsp;
+        {% endif %}
+      {% endfor %}
+      (
+      {% for vote in presences %}
+        {% if vote.user.first_name %}
+          {{ vote.user.first_name}},&nbsp;
+        {% endif %}
+      {% endfor %}
+      )
+    </li>
+    {% endif %}
+    {% if waitinglist %}
+    <li class="collection-item">En attente : 
+      {% for vote in waitinglist %}
+        {{ vote.user.first_name}} ( {{ vote.instrument}} )&nbsp;
+      {% endfor %}
+    </li>
+    {% endif %}
+    {% if absences %}
+    <li class="collection-item">Absents : 
+      {% for vote in absences %}
+        {{ vote.user.first_name}}&nbsp;
+      {% endfor %}
+    </li>
+    {% endif %}
+    {% if questions %}
+    <li class="collection-item">Incertains : 
+      {% for vote in questions %}
+        {{ vote.user.first_name}},&nbsp;
+      {% endfor %}
+    </li>
+    {% endif %}
+  </ul>
+</div>
+</section>

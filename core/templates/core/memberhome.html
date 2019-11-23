@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ block.super }}Espace membres{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h5 class = "center-align">Espace membres</h5>
+<section>
+	<div class="row">
+		<div class="col m8 l8">
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<h6>Dernières informations</h6>
+					<hr>
+					<ul class="collection" style="border: none;">
+						{% if next_repet %}
+							<li class="collection-item">
+								<strong>Prochaine répétition:</strong> {{ next_repet.start }} - {{ next_repet.locations.first.title }}
+							</li>
+						{% endif %}
+						{% if publishedposts %}
+							{% for post in publishedposts %}
+							<li class="collection-item">
+								<strong>{{ post.title }}:</strong> {{ post.content }}
+								{% if post.pdf %}
+									<a href="{{ MEDIA_URL }}{{ post.pdf.file }}" target="_blank">
+									<i class="far fa-file-pdf fa-2x mb-1" aria-hidden="true"></i></a>
+								{% endif %}	
+							</li>	
+							{% endfor %}
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			{% if poll %}
+			{% load poll_tags  %}
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<h6>Dernier sondage</h6>
+					<hr>
+					<div id="poll_container">
+						{% block poll_content %}
+							{% poll %}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+			{% endif%}
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<h6>Calendrier</h6>
+					<hr>
+					<div id="calendar"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col m4 l4">
+			<div class="card-panel hoverable grey darken-1" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<p class="card-title white-text">Bienvenue dans votre espace</p>
+					<p class="white-text">Accédez à toutes vos informations : partitions, messages, sondages, et
+						inscrivez vous aux événements à venir.</p>
+				</div>
+			</div>
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<h6>Vos partitions</h6>
+					<hr>
+					<p>Cliquez sur le lien ci-dessous.</p>
+					<a href="{% url 'animation:pieces' %}" class="btn btn-default">Partitions</a>
+				</div>		
+			</div>
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<h6>Inscrivez vous</h6>
+					<hr>
+					<ul class="collection" style="border: none;">
+					{% if next_events %}
+						{% for event in next_events %}
+						<li class="collection-item">
+								<a href="{% url 'animation:eventdetail' event.id %}">{{ event.title }}&nbsp;&nbsp;le&nbsp;{{ event.start.date }}</a>
+						</li>	
+						{% endfor %}
+					{% else %}
+						<p>Aucun événément n'est actuellement enregistré.</p>
+					{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% else %}
+	<p>Please login to see this page.</p>
+{% endif %}
+{% endblock content %}
+
+{% block extrascripts %}
+	<script>
+		$(document).ready(function(){
+			$('#evenr').hide();
+			$('#modalpgm').on('show.bs.modal', function (e) {
+				$(this).find('.modal-content').load($(e.relatedTarget).attr('href'));});
+		});
+	</script>
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: ''
+				},
+				monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet',
+								'Août','Septembre','Octobre','Novembre','Décembre'],
+				monthNamesShort:
+				['Janv.','Févr.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+				dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+				dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'], 
+				
+				buttonText: {
+					prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
+					next:     '&nbsp;&#9658;&nbsp;',  // right triangle
+					prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
+					nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
+					today:    'Aujourd\'hui',
+					month:    'Mois',
+					week:     'Semaine',
+					day:      'Jour'
+				},
+				
+				editable: true,
+				events: 'events.json',
+
+				eventClick: function(event) {
+					//if you want to open url in the same tab
+					location.href = 'animation/event/'+event.id;
+					//if you want to open url in another window / tab, use the commented code below
+					//window.open(event.url);
+					//window.open('animation/event/'+event.id);
+					return false;
+				}
+			});
+		});
+	</script>
+{% endblock extrascripts %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}{{ block.super }}Vidéos{% endblock %}
+
+{% block content %}
+<h5 class="center-align">Notre dernière vidéo</h5>
+<p class="center-align">Enregistrement amateur</p>
+
+<div class="video-container">
+    <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+{% endblock content %}
+
+{% block extrascripts %}{% endblock extrascripts %}

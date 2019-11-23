@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% block title %}{{ block.super }}Photos{% endblock %}
+
+{% block content %}
+<h5 class="center-align">Nos dernières photos</h5>	
+<p class="center-align">Petit aperçu de notre formation, sans le son...</p>
+<div class="container">
+  <div class="row ">
+      {% if photo_list %}
+      {% for photo in photo_list %}
+  <div class="col s12 l3"><img src="{{ MEDIA_URL }}{{ photo.picture.file }}" alt="" class="materialboxed responsive-img card z-depth-2" data-caption="{{ photo.title }} &nbsp; {{ photo.event.title }}" ></div>  
+  {% endfor %}
+  {% else %}
+    <p>Aucune photo actuellement disponible</p>
+  {% endif %}
+  </div>
+</div>
+{% endblock content %}
+
+{% block extrascripts %}{% endblock extrascripts %}

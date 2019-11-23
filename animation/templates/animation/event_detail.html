@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+<h5 class = "center-align">{{ event.title}}</h5>
+<div id = participation-table tbody></div>
+<section>
+	<div class="row">
+		<div class="col s12 m12 l4">
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					<a  href="{{ MEDIA_URL }}{{ event.locations.first.logo.file }}" target="_blank">
+							<img src="{% thumbnail event.locations.first.logo.file 50x50 crop %}"></a>
+					<br>
+					<h6 class = "center-align">le {{ event.start.date }} à {{ event.start.hour }}h</h6>
+					<h6 class = "center-align">à  {{ event.locations.first.title }}</h6>
+					<h6 class = "center-align">{{ event.locations.first.address }}</h6>
+					<div id="macarte" style="height:250px"></div>
+					<br>
+					<center>
+					<button class="btn waves-effect waves-light js-create-participation" type="submit" name="action" data-url="{% url 'animation:participation_create' event.id%}">
+						Inscrivez vous<i class="material-icons right">send</i>
+					</button>
+					{% if event.stopins == 1 %}
+						<p>Inscriptions bloquées par l'administrateur</p>
+					{% endif %}
+					</center>
+				</div>	
+			</div>	
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<h6>Notes</h6>
+				<hr>
+				<div class="card-body">
+					{{ event.note }}
+				</div>			
+			</div>
+		</div>
+		<div class="col s12 m12 l8">	
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				{% include "animation/participation_list.html" %}
+			</div>
+			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+				<div class="card-body">
+					{% include "animation/partial_piece_list.html" %}
+				</div>			
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="modal-participation">
+	<div class="modal-dialog">
+		<div class="modal-content">
+	</div>
+</div>
+{% endblock content %}
+
+{% block extrascripts %}
+<script type="text/javascript">
+	$(function () {
+
+	/* Functions */
+
+		var loadForm = function () {
+		var btn = $(this);
+		$.ajax({
+			url: btn.attr("data-url"),
+			type: 'get',
+			dataType: 'json',
+			beforeSend: function () {
+			$("#modal-participation").modal("open");
+			},
+			success: function (data) {
+			$("#modal-participation .modal-content").html(data.html_form);
+			}
+			});
+		};
+
+		var saveForm = function () {
+		var form = $(this);
+		var datas = form.serialize();
+		$.ajax({
+			url: form.attr("action"),
+			data: form.serialize(),
+			type: form.attr("method"),
+			dataType: 'json',
+			success: function (data) {
+			if (data.form_is_valid) {
+				$("#participation").html(data.html_event_detail);
+				$("#modal-participation").modal("close");
+				M.toast({html: 'Merci pour votre information !', classes: 'orange darken-4 rounded'})
+			}
+			else {
+				$("#modal-participation .modal-content").html(data.html_form);
+			}
+			}
+		});
+		return false;
+		};
+
+
+		// Create participation
+		$(".js-create-participation").click(loadForm);
+		$("#modal-participation").on("submit", ".js-participation-create-form", saveForm);
+
+		var carte;
+
+		// Create map
+		var carte = L.map('macarte').setView([{{ event.locations.first.location }}], 12);
+		var marker = L.marker([{{ event.locations.first.location }}]).addTo(carte);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+			}).addTo(carte);
+
+	});
+</script>
+{% endblock extrascripts %}

@@ -1,0 +1,124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+  {% block head %}
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    
+    <!-- Blocage des robots d'indexation -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Title-->
+    <title>{% include "_brandname.html" %}</title>
+
+    <!-- CSS -->
+    {% block stylesheets %}
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Materialize admin template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin-materialize.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/flag-icon-css/css/flag-icon.min.css' %}">
+      
+    <!-- Fullcalendar-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css" rel="stylesheet">
+
+    <!-- Materialize icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Openstreetmap -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+      
+    <!-- Sticky footer -->
+    <style>
+      body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      }
+      main {flex: 1 0 auto;}
+    </style>
+
+    {% endblock stylesheets %}
+
+  </head>
+  {% endblock head %}
+
+
+  <body class="grey lighten-3">
+
+    <header>
+        {% include "_navbar.html" %}  
+    </header>
+
+    <main>
+      <div class="container">
+        {% block content %}{% endblock content %}
+      </div>
+    </main>
+
+    <footer class="page-footer grey lighten-3">
+        {% include "_footer.html" %}
+    </footer>
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+         <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+  </body>
+
+  {% block messages %}
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  {% endblock messages %}
+
+
+  {% block scripts %}
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Fullcalendar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
+    
+    <!-- Openstreetmap-->
+    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+ 
+    <!-- Materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript">$(function () {
+        $('.materialboxed').materialbox();
+        $('input#input_text, textarea#textarea2').characterCounter();
+        $('.sidenav').sidenav();
+        $('.modal').modal();
+        $('.datepicker').datepicker({'format': 'yyyy-mm-dd'});
+        $('select').formSelect();
+      });
+    </script>
+
+  <!-- Hide message-->
+    <script type="text/javascript">$(function () {$(".alert").fadeTo(2000, 500).slideUp(500, function(){$(".alert").slideUp(500);});});</script>
+
+  {% endblock scripts %}
+
+  {% block extrascripts %}{% endblock extrascripts %}
+
+</html>

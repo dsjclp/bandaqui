@@ -1,0 +1,8 @@
+django
+django-authtools
+easy-thumbnails
+pytz
+django-filer
+django-simple-poll
+django-location-field
+django-widget-tweaks

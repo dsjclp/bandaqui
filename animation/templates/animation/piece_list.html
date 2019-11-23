@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ block.super }}Partitions{% endblock %}
+
+{% block content %}
+<h5 class = "center-align">Les partitions</h5>
+<ul class="collection" style="border: none;">  
+  {% if piece_list %}
+    {% for piece in piece_list %}
+      <li class="collection-item">
+        <div>
+          {{ piece.title}}		
+          {% if piece.pdf %}
+            <a href="../../../media/{{ piece.pdf.file }}" target="_blank" class="secondary-content"><i class="material-icons">send</i></a>
+          {% endif %} 
+        </div>
+      </li> 
+    {% endfor %}
+  {% else %}
+    <p>Aucune partition actuellement enregistrée.</p>
+  {% endif %}
+</ul>
+{% endblock content %}

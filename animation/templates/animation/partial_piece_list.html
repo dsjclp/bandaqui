@@ -1,0 +1,18 @@
+<h6>Programme</h6>
+<hr>
+<ul class="collection" style="border: none;">
+  {% if event.pieces.all %}
+    {% for piece in event.pieces.all %}
+      <li class="collection-item">
+        <div>
+          {{ piece.title}}		
+          {% if piece.pdf %}
+            <a href="../../../media/{{ piece.pdf.file }}" target="_blank" class="secondary-content"><i class="material-icons">send</i></a>
+          {% endif %} 
+        </div>
+      </li> 
+    {% endfor %}
+  {% else %}
+  <p>Aucune partition actuellement enregistrée.</p>
+  {% endif %}
+</ul> 

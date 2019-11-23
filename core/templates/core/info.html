@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ block.super }}Info{% endblock %}
+{% load thumbnail %}
+
+{% block content %}
+
+<h5 class = "center-align">Informations pratiques</h5>
+<br>
+
+<section >
+
+  <div class="row">
+      <div class="col s12 m12 l4">
+        <div class="card hoverable">
+          <div class="card-image">
+            <img src="{% static 'info01.jpg' %}">
+            <span class="card-title">{% include "_brandname.html" %}</span>
+          </div>
+          <div class="card-content">
+            <h6>Clarinetti est une association loi de 1901 créée en février 2013.</h6>
+            <h6>Sa Présidente est Martine Kis, et son siège est située à Paris.</h6>
+            <h6>
+                Si vous avez envie de nous rejoindre, n'hésitez pas à nous envoyer un message via notre page
+                <a href="{% url 'blog:post_new' %}">Contact</a>
+            </h6>
+          </div>
+        </div>
+      </div>
+      {% if event %}
+      <div class="col s12 m12 l8"> 
+            <div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+                <h6 class = "center-align">Les répétitions ont lieu le mardi soir,</h6>
+                <h6 class = "center-align">{{ event.locations.first.address }}</h6>
+              <br>
+            <div class="center-align z-depth-4" id="macarte" style="height:250px"></div>
+        </div>
+      </div>
+      {% else %}
+      <div class="col s12 m12 l8">
+          <img src="{% static 'index01.jpg' %}" class="responsive-img hoverable">
+      </div>
+      {% endif%}
+  </div>
+
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card hoverable">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{% static 'info02.jpg' %}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Mentions légales du site<i class="material-icons right">more_vert</i></span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Mentions légales du site<i class="material-icons right">close</i></span>
+            <br>
+            <h6>Limitation de responsabilité</h6>
+            <h6>
+              Les informations contenues sur ce site sont aussi précises que possibles et le site est périodiquement remis à jour, mais peut toutefois contenir des inexactitudes, des omissions ou des lacunes.
+              Tout contenu téléchargé se fait aux risques et périls de l'utilisateur et sous sa seule responsabilité. 
+              Les liens hypertextes mis en place dans le cadre du présent site internet en direction d'autres ressources présentes sur le réseau Internet ne sauraient engager la responsabilité de l'éditeur du site.
+            </h6>
+            <br>
+            <h6>Protection des données</h6>
+            <h6>
+              Les internautes disposent d’un droit d’accès, de rectification, de modification et de suppression concernant les données qui les concernent personnellement. 
+              Ce droit peut être exercé par voie électronique en laissant un message sur le site.
+              Vos données personnelles sont confidentielles et ne seront en aucun cas communiquées à des tiers hormis pour la bonne exécution de la prestation.
+            </h6>
+            <br>
+            <h6>Conditions de service</h6>
+            <h6>
+              Nous vous recommandons de recourir à des navigateurs modernes pour profiter de l'ensemble des fonctionnalités et graphiques du site.
+              Ce site est hébergé par le fournisseur <a href="https://eu.pythonanywhere.com">eu.pythonanywhere.com</a>,  lequel assure localiser ses serveurs en Europe.
+            </h6>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</section>
+
+
+{% endblock content %}
+
+
+{% block extrascripts %}
+  <script type="text/javascript">
+    $(function () {
+      var carte;
+      // Create map
+      var carte = L.map('macarte').setView([{{ event.locations.first.location }}], 12);
+      var marker = L.marker([{{ event.locations.first.location }}]).addTo(carte);
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+        }).addTo(carte);
+    });
+  </script>
+{% endblock extrascripts %}

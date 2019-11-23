@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ block.super }}Accueil{% endblock %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="card hoverable">
+        <div class="card-image">
+          <img src="{% static 'index04.jpg' %}">
+          <span class="card-title">{% include "_brandname.html" %}</span>
+        </div>
+        <div class="card-content">
+          <h6>Clarinetti est un orchestre constitué uniquement de clarinettes - de la petite jusqu'à la basse - et d'une contrebasse à cordes.</h6>
+          <h6>Clarinetti est une association loi de 1901 créée en février 2013.</h6>
+        </div>
+        <h6 class="card-action">
+            Sa direction musicale est confiée à 
+          <a href="https://www.sylvainvictor.com/bio/">Sylvain Victor</a>
+        </h6>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="row">
+    <div class="col s12 m12 l6"> 
+        <h5>Présentation</h5>
+        <div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+        <ul class="collection" style="border: none;">
+            <li class="collection-item avatar">
+                <i class="material-icons circle orange darken-4">group</i>
+              <span class="title">Orchestre</span>
+              <p>L'orchestre Clarinetti est formé d'amateurs, tous amoureux de la clarinette.</p>
+              <p>Il est placé sous la direction musicale de Sylvain VICTOR. Nous utilisons plusieurs sortes de clarinettes : de la basse jusqu'à la plus aigüe, et un intrus, une contrebasse à cordes.</p>
+              <a href="{% url 'info' %}" class="secondary-content"><i class="material-icons">add</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <i class="material-icons circle orange darken-4">library_music</i>
+              <span class="title">Répertoire</span>
+              <p>Notre répertoire est éclectique : musiques du monde, musiques de films,
+                  musique classique, musique de danse.
+              </p>
+              <a href="{% url 'info' %}" class="secondary-content"><i class="material-icons">add</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <i class="material-icons circle orange darken-4">location_city</i>
+              <span class="title">Prestations</span>
+              <p>Clarinetti se produit régulièrement en concert, privé ou public, dans des lieux divers tels que les hôpitaux, les lieux associatifs, les mairies.
+              </p>
+              <a href="{% url 'info' %}" class="secondary-content"><i class="material-icons">add</i></a>
+            </li>
+          </ul>
+        </div>
+    </div>
+
+    {% if next_event %}
+    <div class="col s12 m12 l6"> 
+          <h5>Prochain concert</h5>
+          <div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
+            <h5 class = "center-align">{{ next_event.title }}</h5>
+            <h6 class = "center-align">le {{ next_event.start.date }} à {{ next_event.start.hour }}h</h6>
+            <h6 class = "center-align">{{ next_event.locations.first.address }}</h6>
+            <br>
+          <div class="center-align z-depth-4" id="macarte" style="height:250px"></div>
+      </div>
+    </div>
+    {% else %}
+    <div class="col s12 m12 l6">
+        <h5>&nbsp;</h5>
+        <img src="{% static 'index01.jpg' %}" class="responsive-img hoverable">
+    </div>
+    {% endif%}
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="row">
+    <div class="col s12 m12 l6"> 
+        <img src="{% static 'index02.jpg' %}" class="responsive-img hoverable">
+    </div>
+
+    <div class="col s12 m12 l6"> 
+        <div class="card hoverable" style="padding: 12px 24px 6px 24px; border: 1px solid #EEE;">
+          <ul class="collection" style="border: none;">
+            <li class="collection-item avatar">
+              <i class="material-icons circle orange darken-4">person</i>
+              <span class="title">Sylvain Victor</span>
+              <p>Sylvain est un chef d'orchestre professionnel, multi-instrumentiste et passionné de pédagogie. Il délivre au sein de l'école Dynamic Music un enseignement axé vers une pratique collective et accessible au plus grand nombre. </p>
+              <p>&nbsp;</p>
+              <a target="_blank" href="https://www.dynamusic.fr/" class="btn btn-primary btn-rounded">Dynamic Music</a>
+              <a href="https://www.dynamusic.fr/" class="secondary-content"><i class="material-icons">add</i></a>
+            </li>
+            <li class="collection-item avatar">
+              <i class="material-icons circle orange darken-4">person_add</i>
+              <span class="title">&nbsp;</span>
+                <p> Sylvain dirige également l’orchestre d’harmonie AMVB de l'Hay les Roses, le BHO de Bry-sur-Marne et the Soul Music Band du Perreux sur Marne.</p>
+                <p>&nbsp;</p>
+                <a target="_blank" href="http://amvb.fr/" class="btn btn-primary btn-rounded">AMVB</a>
+                <a target="_blank" href="https://www.bho94.fr/" class="btn btn-primary btn-rounded">BHO</a>
+              <a href="http://amvb.fr/" class="secondary-content"><i class="material-icons">add</i></a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+
+{% block extrascripts %}
+  <script type="text/javascript">
+    $(function () {
+      var carte;
+      // Create map
+      var carte = L.map('macarte').setView([{{ next_event.locations.first.location }}], 12);
+      var marker = L.marker([{{ next_event.locations.first.location }}]).addTo(carte);
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+        }).addTo(carte);
+    });
+  </script>
+{% endblock extrascripts %}

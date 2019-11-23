@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ block.super }}Contact{% endblock %}
+{% load widget_tweaks %}
+
+{% block content %}
+<main class = "center-align">
+	<h5 class="deep-orange-text">Laissez nous un message</h5>
+	<div class="container">
+		<div class="card-panel hoverable grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+			<form class="col s12" method="post" action="{% url 'blog:post_new' %}">
+				{% csrf_token %}
+				{% for error in form.non_field_errors %}
+					<div class=" {% if form.non_field_errors %} has-error {% endif %}">{{ error }}</div>
+				{% endfor %}
+				<div class='row'>
+					<div class='col s12'></div>
+				</div>
+				<div class='row'>
+					<div class='input-field col s12'>
+						{% for error in form.title.errors %}
+						{{ error }}
+						{% endfor %}
+						{{ form.title|attr:"placeholder:Titre"|attr:"type:text"|attr:"class:validate" }}
+					<label for='title'>Entrez un titre pour votre message </label>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='input-field col s12'>
+						{% for error in form.email.errors %}
+							{{ error }}
+						{% endfor %}
+						{{ form.email|attr:"placeholder:Email"|attr:"type:email"|attr:"class:validate" }}
+						<label for='email'>Entrez votre adresse email </label>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='input-field col s12'>
+						{% for error in form.content.errors %}
+							{{ error }}
+						{% endfor %}
+						{{ form.content|attr:"placeholder:Contenu"|attr:"type:textarea"|attr:"class:materialize-textarea"|attr:"data-lenght:'120'"|attr:"id:textarea"}}
+						<label for='content'>Entrez le contenu de votre message </label>
+					</div>
+				</div>
+				<br />
+				<div class='row'>
+					<button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>Connexion</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</main>
+{% endblock content %}
+
+{% block extrascripts %}
+	<script type="text/javascript">$(function () {
+		$('textarea#textarea').characterCounter();
+	});
+	</script>
+{% endblock extrascripts %}

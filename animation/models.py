@@ -100,18 +100,6 @@ class Location(models.Model):
         return self.title
 
 
-class Userinstrument(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name='instrumentuserinstruments')
-    class Meta:
-        ordering = ('user',)   
-    class Meta:
-        verbose_name = u'Musiciens : instrument possible'
-        verbose_name_plural = u'Musiciens : instruments possibles'
-    def __str__(self):
-        return '%s %s' % (self.user,self.instrument)
-
-
 class Event(models.Model):
     EVENT_TYPES = [
     ('PUBLIC', 'Evénement public'),

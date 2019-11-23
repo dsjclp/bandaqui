@@ -10,7 +10,6 @@ from django.template.loader import render_to_string
 from django.db.models import Q, Count
 from .models import Piece
 from .models import Instrument
-from .models import Userinstrument
 from .models import Event
 from .models import Eventinstrument
 from .models import Participation

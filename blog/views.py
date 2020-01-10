@@ -21,6 +21,7 @@ class PostDetail(generic.DetailView):
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
+        form.fields['content'].widget.attrs['maxlength'] = 120
         if form.is_valid():
             post = form.save(commit=False)
             post.slug = slugify(post.title)
@@ -32,13 +33,7 @@ def post_new(request):
                 post.author = get_object_or_404(User, pk=1)
             post.save()
             #messages.add_message(request, messages.SUCCESS, 'Merci pour votre message !')
-            #send_mail(
-                #post.title,
-                #post.content,
-                #'contact@yarig.com',
-                #['dsjclp@gmail.com'],
-                #fail_silently=False,
-            #)
+            send_mail(post.title,post.content,'contact@yarig.com',['dsjclp@gmail.com'],)
             return redirect('home')
     else:
         form = PostForm()

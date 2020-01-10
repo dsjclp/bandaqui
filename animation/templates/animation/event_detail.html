@@ -32,7 +32,12 @@
 				<h6>Notes</h6>
 				<hr>
 				<div class="card-body">
-					{{ event.note }}
+					{% if event.manager.first_name %}
+						<li>Pilote de l'événement : {{ event.manager.first_name}}</li>
+					{% endif %}
+					{% if event.note %}
+						<li>{{ event.note }}</li>
+					{% endif %}
 				</div>			
 			</div>
 		</div>
@@ -57,11 +62,8 @@
 {% endblock content %}
 
 {% block extrascripts %}
-<script type="text/javascript">
+<script>
 	$(function () {
-
-	/* Functions */
-
 		var loadForm = function () {
 		var btn = $(this);
 		$.ajax({
@@ -76,7 +78,6 @@
 			}
 			});
 		};
-
 		var saveForm = function () {
 		var form = $(this);
 		var datas = form.serialize();
@@ -98,19 +99,15 @@
 		});
 		return false;
 		};
-
-
 		// Create participation
 		$(".js-create-participation").click(loadForm);
 		$("#modal-participation").on("submit", ".js-participation-create-form", saveForm);
-
 		var carte;
-
 		// Create map
 		var carte = L.map('macarte').setView([{{ event.locations.first.location }}], 12);
 		var marker = L.marker([{{ event.locations.first.location }}]).addTo(carte);
-		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    		attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
 			}).addTo(carte);
 
 	});

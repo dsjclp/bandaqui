@@ -33,7 +33,7 @@ class MemberhomePage(generic.TemplateView):
         #prochaine répétition
         next_repet = Event.objects.filter(start__gte=timezone.now(), event_type ='REPET').first()
         #prochains concerts
-        next_events = Event.objects.filter(start__gte=timezone.now()).exclude(event_type ='REPET')
+        next_events = Event.objects.filter(start__gte=timezone.now()).exclude(event_type ='')
         #derniers messages publiés
         publishedposts = Post.objects.filter(status=1).order_by('-created_on')[:10]
         context = {'next_repet': next_repet, 'next_events': next_events, 'publishedposts': publishedposts}

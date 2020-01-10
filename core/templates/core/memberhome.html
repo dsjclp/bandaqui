@@ -32,7 +32,7 @@
 					</ul>
 				</div>
 			</div>
-			{% if poll %}
+		
 			{% load poll_tags  %}
 			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
 				<div class="card-body">
@@ -45,7 +45,7 @@
 					</div>
 				</div>
 			</div>
-			{% endif%}
+			
 			<div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
 				<div class="card-body">
 					<h6>Calendrier</h6>
@@ -91,7 +91,7 @@
 	</div>
 </section>
 {% else %}
-	<p>Please login to see this page.</p>
+<h5 class="center-align">Merci de vous <a href="{% url 'login' %}" >identifier </a>pour accéder à cette page.</h5>
 {% endif %}
 {% endblock content %}
 

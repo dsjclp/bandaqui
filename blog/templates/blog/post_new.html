@@ -4,10 +4,10 @@
 
 {% block content %}
 <main class = "center-align">
-	<h5 class="deep-orange-text">Laissez nous un message</h5>
-	<div class="container">
-		<div class="card-panel hoverable grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-			<form class="col s12" method="post" action="{% url 'blog:post_new' %}">
+    <h5 class="red-text text-darken-2">Laissez nous un message</h5>
+    <div class="container">
+      <div class="card-panel hoverable grey lighten-4 row">
+		<form class="col s12" method="post" action="{% url 'blog:post_new' %}">
 				{% csrf_token %}
 				{% for error in form.non_field_errors %}
 					<div class=" {% if form.non_field_errors %} has-error {% endif %}">{{ error }}</div>
@@ -39,12 +39,12 @@
 							{{ error }}
 						{% endfor %}
 						{{ form.content|attr:"placeholder:Contenu"|attr:"type:textarea"|attr:"class:materialize-textarea"|attr:"data-lenght:'120'"|attr:"id:textarea"}}
-						<label for='content'>Entrez le contenu de votre message </label>
+						<label for='content'>Entrez le contenu de votre message (max 500 caractères) </label>
 					</div>
 				</div>
 				<br />
 				<div class='row'>
-					<button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect'>Connexion</button>
+					<button type='submit' class='btn waves-effect'>Envoi</button>
 				</div>
 			</form>
 		</div>

@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}{{ block.super }}Accueil{% endblock %}
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="home" %}
+{% endblock %}
 
 {% block content %}
 
@@ -8,7 +11,7 @@
     <div class="col s12 m12 l12">
       <div class="card hoverable">
         <div class="card-image">
-          <img src="{% static 'index04.jpg' %}">
+          <img src="{% static 'index01.jpg' %}" alt="">
           <span class="card-title">{% include "_brandname.html" %}</span>
         </div>
         <div class="card-content">
@@ -70,7 +73,7 @@
     {% else %}
     <div class="col s12 m12 l6">
         <h5>&nbsp;</h5>
-        <img src="{% static 'index01.jpg' %}" class="responsive-img hoverable">
+        <img src="{% static 'index01.jpg' %}" class="responsive-img hoverable" alt="">
     </div>
     {% endif%}
 
@@ -80,7 +83,7 @@
 
   <div class="row">
     <div class="col s12 m12 l6"> 
-        <img src="{% static 'index02.jpg' %}" class="responsive-img hoverable">
+        <img src="{% static 'index02.jpg' %}" class="responsive-img hoverable" alt="">
     </div>
 
     <div class="col s12 m12 l6"> 
@@ -112,14 +115,14 @@
 
 
 {% block extrascripts %}
-  <script type="text/javascript">
+  <script>
     $(function () {
       var carte;
       // Create map
       var carte = L.map('macarte').setView([{{ next_event.locations.first.location }}], 12);
       var marker = L.marker([{{ next_event.locations.first.location }}]).addTo(carte);
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
         }).addTo(carte);
     });
   </script>

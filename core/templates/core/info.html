@@ -87,15 +87,15 @@
 
 
 {% block extrascripts %}
-  <script type="text/javascript">
-    $(function () {
-      var carte;
-      // Create map
-      var carte = L.map('macarte').setView([{{ event.locations.first.location }}], 12);
-      var marker = L.marker([{{ event.locations.first.location }}]).addTo(carte);
-      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
-        }).addTo(carte);
-    });
-  </script>
+<script>
+  $(function () {
+    var carte;
+    // Create map
+    var carte = L.map('macarte').setView([{{ next_event.locations.first.location }}], 12);
+    var marker = L.marker([{{ next_event.locations.first.location }}]).addTo(carte);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+      }).addTo(carte);
+  });
+</script>
 {% endblock extrascripts %}

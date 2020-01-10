@@ -26,7 +26,7 @@ SECRET_KEY = ')sf2(galj(z792$%hj=+ugko)vs1o2nqzgwn_@gfyt9^+f+l49'
 DEBUG = True
 #DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '.yarig.fr']
 
 
 
@@ -155,4 +155,19 @@ LOCATION_FIELD = {
     'map.provider': 'openstreetmap',
     'search.provider': 'nominatim',
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#EMAIL_HOST = "SSL0.OVH.NET"
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = "contact@yarig.fr"
+#EMAIL_HOST_PASSWORD = "Jclp1999*"
+
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "dsjclp@gmail.com"
+EMAIL_HOST_PASSWORD = "Jclp2933"
 

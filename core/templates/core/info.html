@@ -18,12 +18,13 @@
             <span class="card-title">{% include "_brandname.html" %}</span>
           </div>
           <div class="card-content">
-            <h6>Clarinetti est une association loi de 1901 créée en février 2013.</h6>
-            <h6>Sa Présidente est Martine Kis, et son siège est située à Paris.</h6>
             <h6>
-                Si vous avez envie de nous rejoindre, n'hésitez pas à nous envoyer un message via notre page
-                <a href="{% url 'blog:post_new' %}">Contact</a>
-            </h6>
+              <h6>La Band’aqui est une association loi de 1901; créée en mars 2006.</h6>
+              <h6>Son Président est Françis Sansas, et son siège est située à Lanton (33 138).</h6>
+              <h6>
+              Si vous avez envie de nous rejoindre, n'hésitez pas à nous envoyer un message via notre page  
+              <a href="{% url 'blog:post_new' %}" class="red-text">Contact</a>
+            </h6> 
           </div>
         </div>
       </div>
@@ -38,7 +39,7 @@
       </div>
       {% else %}
       <div class="col s12 m12 l8">
-          <img src="{% static 'index01.jpg' %}" class="responsive-img hoverable">
+          <img src="{% static 'info03.jpg' %}" class="responsive-img hoverable">
       </div>
       {% endif%}
   </div>

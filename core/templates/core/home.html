@@ -15,12 +15,16 @@
           <span class="card-title">{% include "_brandname.html" %}</span>
         </div>
         <div class="card-content">
-          <h6>Clarinetti est un orchestre constitué uniquement de clarinettes - de la petite jusqu'à la basse - et d'une contrebasse à cordes.</h6>
-          <h6>Clarinetti est une association loi de 1901 créée en février 2013.</h6>
+          <h5>La Band'aqui</h5>
+          <h6>Nous sommes la Banda de Lanton, sur le Bassin d'Arcachon.</h6>
+          <h6>Notre ensemble est un groupe d'ami(e)s, musiciens amateurs, tous amoureux de la musique et du Bassin.
+            
+            Notre idéal commun se caractérise par la volonté de faire plaisir et se faire plaisir. Nous faisons des prestations dans toute la Gironde et participons aussi bien à des animations de comités des fêtes qu’à des animations sportives, des festivals, des carnavals ...</h6>
+          <h6>La Band’aqui est une association loi de 1901; créée en mars 2006.</h6>
         </div>
         <h6 class="card-action">
-            Sa direction musicale est confiée à 
-          <a href="https://www.sylvainvictor.com/bio/">Sylvain Victor</a>
+            La direction musicale de notre Banda est confiée à 
+          <a class="red-text" href="">Tiephen</a>
         </h6>
       </div>
     </div>
@@ -34,26 +38,19 @@
         <div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
         <ul class="collection" style="border: none;">
             <li class="collection-item avatar">
-                <i class="material-icons circle orange darken-4">group</i>
-              <span class="title">Orchestre</span>
-              <p>L'orchestre Clarinetti est formé d'amateurs, tous amoureux de la clarinette.</p>
-              <p>Il est placé sous la direction musicale de Sylvain VICTOR. Nous utilisons plusieurs sortes de clarinettes : de la basse jusqu'à la plus aigüe, et un intrus, une contrebasse à cordes.</p>
-              <a href="{% url 'info' %}" class="secondary-content"><i class="material-icons">add</i></a>
-            </li>
-            <li class="collection-item avatar">
-              <i class="material-icons circle orange darken-4">library_music</i>
+              <i class="material-icons circle red">library_music</i>
               <span class="title">Répertoire</span>
-              <p>Notre répertoire est éclectique : musiques du monde, musiques de films,
-                  musique classique, musique de danse.
+              <p>Nous sommes une Banda, mais nous aimons tous les genres musicaux, notre répertoire comprend de la chanson française, des pièces classiques, et bien entendu les airs traditionnels de banda.
               </p>
-              <a href="{% url 'info' %}" class="secondary-content"><i class="material-icons">add</i></a>
+              <a href="{% url 'info' %}" class="secondary-content red-text"><i class="material-icons">add</i></a>
             </li>
             <li class="collection-item avatar">
-              <i class="material-icons circle orange darken-4">location_city</i>
+              <i class="material-icons circle red">location_city</i>
               <span class="title">Prestations</span>
-              <p>Clarinetti se produit régulièrement en concert, privé ou public, dans des lieux divers tels que les hôpitaux, les lieux associatifs, les mairies.
+              <p>La Band'Aqui se produit régulièrement en Gironde et dans les départements voisins, à  l'occasion d'événements publics associatifs et sportifs, festivals et fêtes estivales, et parfois à l'occasion d'événements privés. 
+                <a href="{% url 'blog:post_new' %}" class="red-text">N'hésitez pas à nous contacter !</a> 
               </p>
-              <a href="{% url 'info' %}" class="secondary-content"><i class="material-icons">add</i></a>
+              <a href="{% url 'blog:post_new' %}" class="secondary-content red-text"><i class="material-icons">add</i></a>
             </li>
           </ul>
         </div>
@@ -61,7 +58,7 @@
 
     {% if next_event %}
     <div class="col s12 m12 l6"> 
-          <h5>Prochain concert</h5>
+          <h5>Prochaine prestation</h5>
           <div class="card-panel hoverable" style="padding: 24px 24px 24px 24px; border: 1px solid #EEE;">
             <h5 class = "center-align">{{ next_event.title }}</h5>
             <h6 class = "center-align">le {{ next_event.start.date }} à {{ next_event.start.hour }}h</h6>
@@ -73,7 +70,7 @@
     {% else %}
     <div class="col s12 m12 l6">
         <h5>&nbsp;</h5>
-        <img src="{% static 'index01.jpg' %}" class="responsive-img hoverable" alt="">
+        <img src="{% static 'index03.jpg' %}" class="responsive-img hoverable" alt="">
     </div>
     {% endif%}
 
@@ -88,25 +85,50 @@
 
     <div class="col s12 m12 l6"> 
         <div class="card hoverable" style="padding: 12px 24px 6px 24px; border: 1px solid #EEE;">
-          <ul class="collection" style="border: none;">
-            <li class="collection-item avatar">
-              <i class="material-icons circle orange darken-4">person</i>
-              <span class="title">Sylvain Victor</span>
-              <p>Sylvain est un chef d'orchestre professionnel, multi-instrumentiste et passionné de pédagogie. Il délivre au sein de l'école Dynamic Music un enseignement axé vers une pratique collective et accessible au plus grand nombre. </p>
-              <p>&nbsp;</p>
-              <a target="_blank" href="https://www.dynamusic.fr/" class="btn btn-primary btn-rounded">Dynamic Music</a>
-              <a href="https://www.dynamusic.fr/" class="secondary-content"><i class="material-icons">add</i></a>
-            </li>
-            <li class="collection-item avatar">
-              <i class="material-icons circle orange darken-4">person_add</i>
-              <span class="title">&nbsp;</span>
-                <p> Sylvain dirige également l’orchestre d’harmonie AMVB de l'Hay les Roses, le BHO de Bry-sur-Marne et the Soul Music Band du Perreux sur Marne.</p>
-                <p>&nbsp;</p>
-                <a target="_blank" href="http://amvb.fr/" class="btn btn-primary btn-rounded">AMVB</a>
-                <a target="_blank" href="https://www.bho94.fr/" class="btn btn-primary btn-rounded">BHO</a>
-              <a href="http://amvb.fr/" class="secondary-content"><i class="material-icons">add</i></a>
-            </li>
-          </ul>
+
+            <div class="card-content">
+
+              <h5>Festibandas Lanton</h5>
+              <p class="mb-4">	La Bandaqui est, avec l'association<a class="px-2 red-text" target="blank" href="https://www.telelanthon.com/">Télélanthon</a>, cofondateur du festival Festibandas de Lanton.
+              </p>
+              <p> Ce festival se déroule tous les ans le premier mercredi d'août
+              sur le port et la plage de <a target="blank" class="red-text" href="https://www.mairie-lanton.fr/">Cassy  -  3138 Lanton.</a>
+              </p>
+              <p><br></p>
+              <p>
+                Retrouvez Festibandas sur les réseaux sociaux :
+                <ul class="collection" style="border: none;">
+                  <li class="collection-item avatar">
+                    <a target="blank" href="https://fr-fr.facebook.com/Festi-banda-Lanton-1051460758224416/" class="grey-text text-darken-1">
+                    <i class="material-icons circle iconify" data-icon="mdi-facebook" data-inline="false"></i>
+                    <span class="title">Facebook</span>
+                    </a>
+                    <p><br></p>
+                    <a target="blank" href="https://fr-fr.facebook.com/Festi-banda-Lanton-1051460758224416/" class="secondary-content red-text"><i class="material-icons">play_arrow</i></a>
+                  </li>
+                  <li class="collection-item avatar">
+                    <a target="blank" href="https://www.youtube.com/watch?v=r_cd44GO0ts" class="grey-text text-darken-1">
+                    <i class="material-icons circle iconify" data-icon="mdi-youtube" data-inline="false"></i>
+                    <span class="title">Youtube</span>
+                  </a>
+                    <p><br></p>
+                    <a target="blank" href="https://www.youtube.com/watch?v=r_cd44GO0ts" class="secondary-content red-text"><i class="material-icons">play_arrow</i></a>
+                  </li>
+                  <li class="collection-item avatar">
+                   <a target="blank" href="https://vimeo.com/177958012" class="grey-text text-darken-1">
+                    <i class="material-icons circle iconify" data-icon="mdi-vimeo" data-inline="false"></i>
+                    <span class="title">Vimeo</span>
+                  </a>
+                    <p><br></p>
+                    <a target="blank" href="https://vimeo.com/177958012" class="secondary-content red-text"><i class="material-icons">play_arrow</i></a>
+                  </li>
+                </ul>
+              </p>
+
+              <p class="mb-4">	
+                Retrouvez Festibandas sur <a target="blank" class="red-text" href="https://www.infobassin.com/loisirs-culturels/festibandas-lanton-fetes-port-la-teste.html">Infobassin</a>
+              </p>
+
         </div>
     </div>
   </div>
